@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <title>Philips Hue Tester</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <style>
+      .row {
+        padding-top: 15px;
+      }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="js/bootstrap.js"></script>
+    <script language="javascript" type="text/javascript" src="js/colors.js"></script>
+    <script language="javascript" type="text/javascript" src="js/hue.js"></script>
+    <script language="javascript" type="text/javascript" src="js/main.js"></script>
+
+  </head>
+  <body>
+
+    <div class="container">
+
+      <div class="row">
+        <h1>Philips Hue Tester</h1>
+      </div>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="turnOnAllLights()">Turn On All Lights</button>
+      </div>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="turnOffAllLights()">Turn Off All Lights</button>
+      </div>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="setAllColors()">Set All Lights Color:</button>
+        <input id="allLightsColor" type="text"/>
+        Hex Colors:  000000 to FFFFFF
+      </div>
+
+      <br/>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="turnOnLightN()">Turn On Light #:</button>
+        <input id="turnOnLightNInput" type="number"/>
+        1,2,3 
+      </div>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="turnOffLightN()">Turn Off Light #:</button>
+        <input id="turnOffLightNInput" type="number"/>
+        1,2,3 
+      </div>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="setLightNColor()">Set Light # Color:</button>
+        <input id="lightN" type="number"/>
+        1,2,3 
+        <input id="lightNColor" type="text"/>
+        Hex Colors:  000000 to FFFFFF
+      </div>
+
+      <br/>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="shortFlashAllLights()">Short Flash All Lights</button>
+      </div>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="shortFlashLightN()">Short Flash Light #:</button>
+        <input id="shortFlashLightNInput" type="number"/> 
+      </div>
+
+      </br>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="longFlashAllLights()">Long Flash All Lights</button>
+      </div>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="longFlashLightN()">Long Flash Light #:</button>
+        <input id="longFlashLightNInput" type="number"/> 
+      </div>
+
+      </br>
+
+
+
+
+      <p>Add more tester buttons and functions:</p>
+      <ul>
+        <li>setAllBrightness - 0 and 254</li>
+        <li>setBrightness - 0 and 254</li>
+        <li>dimAll - 0 and 255</li>
+        <li>dim - 0 and 255</li>
+        <li>brightenAll</li>
+        <li>brighten</li>
+        <li>setTransitionTime</li>
+        <li>getTransitionTime</li>
+      </ul>
+
+
+    </div>
+
+  </body>
+</html>
