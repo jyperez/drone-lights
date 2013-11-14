@@ -65,6 +65,20 @@
       <br/>
 
       <div class="row">
+        <p>The duration of the transition from the light's current state to the new state. This is given as a multiple of 100ms and defaults to 4 (400ms). For example, setting transistiontime:10 will make the transition last 1 second.</p>
+        <button type="button" class="btn btn-default" onclick="setTransTime()">Set Transition Time:</button>
+        <input id="transTime" type="number"/>
+      </div>
+
+      <div class="row">
+        <button type="button" class="btn btn-default" onclick="getTransTime()">Get Transition Time:</button>
+        <input id="transTimeGet" type="number" readonly/>
+      </div>
+
+      <br/>
+
+
+      <div class="row">
         <button type="button" class="btn btn-default" onclick="shortFlashAllLights()">Short Flash All Lights</button>
       </div>
 
@@ -87,8 +101,6 @@
       </br>
 
 
-
-
       <p>Add more tester buttons and functions:</p>
       <ul>
         <li>setAllBrightness - 0 and 254</li>
@@ -97,8 +109,6 @@
         <li>dim - 0 and 255</li>
         <li>brightenAll</li>
         <li>brighten</li>
-        <li>setTransitionTime</li>
-        <li>getTransitionTime</li>
       </ul>
 
 

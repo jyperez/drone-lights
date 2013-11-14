@@ -56,6 +56,28 @@ function setLightNColor() {
 
 
 
+function setTransTime() {
+  var transTime = document.getElementById("transTime");
+
+  console.log("Set transition time to: " + transTime.value);
+
+  hue.setTransitionTime(transTime.value);
+}
+
+
+function getTransTime() {
+  var transTimeGet = document.getElementById("transTimeGet");
+
+  transTimeGet.value = hue.getTransitionTime();
+}
+
+
+
+
+
+
+
+
 
 
 function shortFlashAllLights() {
