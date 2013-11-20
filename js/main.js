@@ -17,6 +17,7 @@ function turnOnAllLights() {
 
 
 function turnOffAllLights() {
+  hue.turnOffAll();
 }
 
 
@@ -34,7 +35,7 @@ function turnOnLightN() {
   var lightNum = document.getElementById("turnOnLightNInput");
 
   console.log("Turn on light number: " + lightNum.value);
-  
+  hue.turnOn(lightNum.value);
 }
 
 
@@ -42,7 +43,7 @@ function turnOffLightN() {
   var lightNum = document.getElementById("turnOffLightNInput");
 
   console.log("Turn off light number: " + lightNum.value);
-
+  hue.turnOff(lightNum.value);
 }
 
 
@@ -51,7 +52,7 @@ function setLightNColor() {
   var lightColor = document.getElementById("lightNColor");
 
   console.log("Set lights #: " + lightN.value + " to Color: " + lightNColor.value);
-
+  hue.setColor(lightNum.value,lightNColor.value);
 }
 
 
@@ -60,7 +61,7 @@ function setTransTime() {
   var transTime = document.getElementById("transTime");
 
   console.log("Set transition time to: " + transTime.value);
-
+  hue
   hue.setTransitionTime(transTime.value);
 }
 
@@ -103,5 +104,22 @@ function longFlashLightN() {
   
 }
 
+function setAllBrightness() {
+  var brightNum = document.getElementById("setAllBrightness");
+  console.log("Set all Brightness:" + parseInt(brightNum.value));
+  var obj = hue.setAllBrightness(parseInt(brightNum.value));
+}
 
+function setBrightness() {
+  var lightNum = document.getElementById("lightNum");
+  var brightNum = document.getElementById("setBrightness");
+  console.log("Set Brightness:" + parseInt(brightNum.value));
+  var obj = hue.setBrightness(lightNum.value, parseInt(brightNum.value));
+}
+
+function dimAll() {
+  var dimNum = document.getElementById("dimAll");
+  console.log("Dim All: " + parseInt(dimNum.value));
+  hue.dimAll(parseInt(dimNum.value));
+}
 
