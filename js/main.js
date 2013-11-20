@@ -10,26 +10,21 @@ var hue = hue || window.hue,
 hue.setIpAndApiKey(IPAddress, APIKey);
 
 
-
 function turnOnAllLights() {
   hue.turnOnAll();
 }
-
 
 function turnOffAllLights() {
   hue.turnOffAll();
 }
 
-
-function setAllColors() {
-  var lightColor = document.getElementById("allLightsColor");
-
-  console.log("Set all lights to Color: " + lightColor.value);
-
-  hue.setAllColors(lightColor.value);  
+function setAllColors(color) {
+  console.log("Set all lights to Color: " + color);
+  hue.setAllColors(color);  
 }
 
 
+<<<<<<< HEAD
 
 function turnOnLightN() {
   var lightNum = document.getElementById("turnOnLightNInput");
@@ -63,45 +58,74 @@ function setTransTime() {
   console.log("Set transition time to: " + transTime.value);
   hue
   hue.setTransitionTime(transTime.value);
+=======
+function turnOnLightN(index) {
+  console.log("Turn on light number: " + index);
+  hue.turnOn(index);
+}
+
+function turnOffLightN(index) {
+  console.log("Turn off light number: " + index);
+  hue.turnOff(index);
+
+}
+
+function setLightNColor(index, color) {
+  console.log("Set lights #: " + index + " to Color: " + color);
+  hue.setColor(index, color);
 }
 
 
-function getTransTime() {
-  var transTimeGet = document.getElementById("transTimeGet");
-
-  transTimeGet.value = hue.getTransitionTime();
+function setTransTime(transTime) {
+  console.log("Set transition time to: " + transTime);
+  hue.setTransitionTime(transTime);
+>>>>>>> 60418b20a719efa14cee53e5b765a2e2b82d9677
 }
 
-
-
-
-
-
-
-
+function getTransTime(transTime) {
+  transTime.value = hue.getTransitionTime();
+}
 
 
 function shortFlashAllLights() {
+   hue.flashAll();
+ }
+
+function shortFlashLightN(index) {
+  console.log("Short flash light number: " + index);
+  hue.flash(index);
 }
-
-function shortFlashLightN() {
-  var lightNum = document.getElementById("shortFlashLightNInput");
-
-  console.log("Short flash light number: " + lightNum.value);
-  
-}
-
 
 
 function longFlashAllLights() {
+  hue.longFlashAll();
+}
+
+function longFlashLightN(index) {
+  console.log("Long flash light number: " + index);
+  hue.longFlash(index);
 }
 
 
-function longFlashLightN() {
-  var lightNum = document.getElementById("longFlashLightNInput");
+function setAllBrightness(briVal) {
+  console.log("Set all Brightness: " + briVal);
+  hue.setAllBrightness(briVal);
+}
 
-  console.log("Long flash light number: " + lightNum.value);
-  
+function setBrightness(index, briVal) {
+  console.log("Set light: " + index + " Brightness: " + briVal);
+  hue.setBrightness(index, briVal);
+}
+
+
+function dimAll(dimVal) {
+  console.log("Dim All: " + parseInt(dimVal));
+  hue.dimAll(parseInt(dimVal));
+}
+
+function dimLightN(index, dimVal) {
+  console.log("Dim light: " + index + " value: " + parseInt(dimVal));
+  hue.dim(index, parseInt(dimVal));
 }
 
 function setAllBrightness() {
@@ -122,4 +146,5 @@ function dimAll() {
   console.log("Dim All: " + parseInt(dimNum.value));
   hue.dimAll(parseInt(dimNum.value));
 }
+
 

@@ -237,7 +237,7 @@ var hue = function ($, colors) {
          *
          * @return {Object} JSON object containing lamp state.
          */
-        longFlashAll: function() {
+        s: function() {
             return putAll(longFlashState);
         },
         /** 
