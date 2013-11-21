@@ -24,41 +24,6 @@ function setAllColors(color) {
 }
 
 
-<<<<<<< HEAD
-
-function turnOnLightN() {
-  var lightNum = document.getElementById("turnOnLightNInput");
-
-  console.log("Turn on light number: " + lightNum.value);
-  hue.turnOn(lightNum.value);
-}
-
-
-function turnOffLightN() {
-  var lightNum = document.getElementById("turnOffLightNInput");
-
-  console.log("Turn off light number: " + lightNum.value);
-  hue.turnOff(lightNum.value);
-}
-
-
-function setLightNColor() {
-  var lightNum = document.getElementById("lightN");
-  var lightColor = document.getElementById("lightNColor");
-
-  console.log("Set lights #: " + lightN.value + " to Color: " + lightNColor.value);
-  hue.setColor(lightNum.value,lightNColor.value);
-}
-
-
-
-function setTransTime() {
-  var transTime = document.getElementById("transTime");
-
-  console.log("Set transition time to: " + transTime.value);
-  hue
-  hue.setTransitionTime(transTime.value);
-=======
 function turnOnLightN(index) {
   console.log("Turn on light number: " + index);
   hue.turnOn(index);
@@ -79,7 +44,6 @@ function setLightNColor(index, color) {
 function setTransTime(transTime) {
   console.log("Set transition time to: " + transTime);
   hue.setTransitionTime(transTime);
->>>>>>> 60418b20a719efa14cee53e5b765a2e2b82d9677
 }
 
 function getTransTime(transTime) {
@@ -126,25 +90,6 @@ function dimAll(dimVal) {
 function dimLightN(index, dimVal) {
   console.log("Dim light: " + index + " value: " + parseInt(dimVal));
   hue.dim(index, parseInt(dimVal));
-}
-
-function setAllBrightness() {
-  var brightNum = document.getElementById("setAllBrightness");
-  console.log("Set all Brightness:" + parseInt(brightNum.value));
-  var obj = hue.setAllBrightness(parseInt(brightNum.value));
-}
-
-function setBrightness() {
-  var lightNum = document.getElementById("lightNum");
-  var brightNum = document.getElementById("setBrightness");
-  console.log("Set Brightness:" + parseInt(brightNum.value));
-  var obj = hue.setBrightness(lightNum.value, parseInt(brightNum.value));
-}
-
-function dimAll() {
-  var dimNum = document.getElementById("dimAll");
-  console.log("Dim All: " + parseInt(dimNum.value));
-  hue.dimAll(parseInt(dimNum.value));
 }
 
 
