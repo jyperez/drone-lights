@@ -1,0 +1,15 @@
+.lights-button {
+  width:170px;
+}
+
+#fftbox, #wavebox {
+  position: absolute;
+  width: 500;
+  height: 100;
+}
+
+#canvasbox {
+  position: relative;
+  width: 500px;
+  height: 100px;
+}

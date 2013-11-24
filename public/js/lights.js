@@ -110,11 +110,6 @@ function turnOffAllLights() {
   return hue.turnOffAll();
 }
 
-function setAllColors(color) {
-  console.log("Set all lights to Color: " + color);
-  return hue.setAllColors(color);  
-}
-
 
 function turnOnLightN(index) {
   console.log("Turn on light number: " + index);
@@ -127,8 +122,16 @@ function turnOffLightN(index) {
 
 }
 
+
+function setAllColors(color) {
+  color = color.replace("#", "");
+  console.log("Set all lights to Color: " + color);
+  return hue.setAllColors(color);  
+}
+
 function setLightNColor(index, color) {
-  console.log("Set lights #: " + index + " to Color: " + color);
+  color = color.replace("#", "");
+  console.log("Set light #: " + index + " to Color: " + color);
   return hue.setColor(index, color);
 }
 
@@ -172,6 +175,7 @@ function setBrightness(index, briVal) {
   console.log("Set light: " + index + " Brightness: " + briVal);
   return hue.setBrightness(index, briVal);
 }
+
 
 function dimAll(dimVal) {
   console.log("Dim All: " + parseInt(dimVal));

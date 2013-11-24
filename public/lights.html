@@ -1,0 +1,149 @@
+<div class="row">
+  <h1>Philips Hue Tester</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <div class="row">
+      <h3>Turn On / Off</h3>
+    </div>
+
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="turnOnAllLights()">Turn On All Lights</button>
+    </div>
+    <p/>
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="turnOffAllLights()">Turn Off All Lights</button>
+    </div>
+
+    <br/>
+
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="turnOnLightN(turnOnLightNInput.value)">Turn On Light #</button>
+      <input id="turnOnLightNInput" type="number" min="1" max="3"/>
+      1,2,3 
+    </div>
+    <p/>
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="turnOffLightN(turnOffLightNInput.value)">Turn Off Light #</button>
+      <input id="turnOffLightNInput" type="number" min="1" max="3"/>
+      1,2,3 
+    </div>
+
+    <br/>
+
+    <div class="row">
+      <h3>Change Color</h3>
+      <p>Colors are represented using HEX values 000000 to FFFFFF.</p>
+    </div>
+
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="setAllColors(allLightsColor.value)">Set All Lights Color:</button>
+      <input id="allLightsColor" type="color"/>
+    </div>
+    <p/>
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="setLightNColor(lightN.value, lightNColor.value)">Set Light # Color</button>
+      <input id="lightN" type="number" min="1" max="3"/>
+      1,2,3 
+      <input id="lightNColor" type="color"/>
+    </div>
+
+    <br/>
+    <div class="row">
+      <h3>Transition Time</h3>
+      <p>The duration of the transition from the light's current state to the new state. This is given as a multiple of 100ms and defaults to 4 (400ms). For example, setting transistiontime:10 will make the transition last 1 second.</p>
+    </div>
+
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="setTransTime(transTime.value)">Set Transition Time</button>
+      <input id="transTime" type="number"/>
+    </div>
+    <p/>
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="getTransTime(transTimeGet)">Get Transition Time</button>
+      <input id="transTimeGet" type="number" readonly/>
+    </div>
+
+    <br/>
+
+    <div class="row">
+      <h3>Flash / Pulse Lights</h3>
+    </div>
+
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="shortFlashAllLights()">Short Flash All Lights</button>
+    </div>
+    <p/>
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="shortFlashLightN(shortFlashLightNInput.value)">Short Flash Light #</button>
+      <input id="shortFlashLightNInput" type="number" min="1" max="3"/> 
+      1,2,3 
+    </div>
+
+    </br>
+
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="longFlashAllLights()">Long Flash All Lights</button>
+    </div>
+    <p/>
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="longFlashLightN(longFlashLightNInput.value)">Long Flash Light #</button>
+      <input id="longFlashLightNInput" type="number" min="1" max="3"/>
+      1,2,3 
+    </div>
+
+    </br>
+
+    <div class="row">
+      <h3>Change Brightness</h3>
+    </div>
+
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="setAllBrightness(parseInt(allBrightness.value))">Set All Brightness</button>
+      <input id="allBrightness" type="number" min="0" max="255"/>
+      0 - 255
+    </div>
+    <p/>
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="setBrightness(lightNum.value, parseInt(lightBright.value))">Set Light # Brightness</button>
+      <input id="lightNum" type="number" min="1" max="3"/>
+      1,2,3
+      <input id="lightBright" type="number" min="0" max="255"/>
+      0 - 255
+    </div>
+
+    </br>
+
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="dimAll(dimAllVal.value)">Dim All</button>
+      <input id="dimAllVal" type="number" min="0" max="255"/>
+      0 - 255
+    </div>
+    <p/>
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="dimLightN(dimLight.value, dimVal.value)">Dim Light #</button>
+      <input id="dimLight" type="number" min="1" max="3"/>
+      1,2,3         
+      <input id="dimVal" type="number" min="0" max="255"/>
+      0 - 255
+    </div>
+
+    </br>      
+
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="brightenAll(brightenAllVal.value)">Brighten All</button>
+      <input id="brightenAllVal" type="number" min="0" max="255"/>
+      0 - 255
+    </div>
+    <p/>
+    <div class="row">
+      <button type="button" class="btn btn-default lights-button" onclick="brightenLightN(dimLight.value, dimVal.value)">Brighten Light #</button>
+      <input id="brightenLight" type="number" min="1" max="3"/>
+      1,2,3         
+      <input id="brightenVal" type="number" min="0" max="255"/>
+      0 - 255
+    </div>
+
+</div>
