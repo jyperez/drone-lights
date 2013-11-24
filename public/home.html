@@ -12,19 +12,20 @@
     context = new webkitAudioContext();
 
     // Setup frequency visualization
-    light1 = new SpectrumBox(2048, 3, 1, "light1", context);
+    light1 = new LightBox(2048, 3, 1, "light1", context);
     light1.setValidPoints(500);
-    light1.getCanvasContext().fillStyle = "rgb(255, 150, 150)";
+    light1.getCanvasContext().fillStyle = "rgb(0, 0, 255)";
 
-    light2 = new SpectrumBox(2048, 3, 2, "light2", context);
+    light2 = new LightBox(2048, 3, 2, "light2", context);
     light2.setValidPoints(500);
     light2.getCanvasContext().fillStyle = "rgb(0, 255, 0)";
 
-    light3 = new SpectrumBox(2048, 3, 3, "light3", context);
+    light3 = new LightBox(2048, 3, 3, "light3", context);
     light3.setValidPoints(500);
-    light3.getCanvasContext().fillStyle = "rgb(0, 0, 255)";
+    light3.getCanvasContext().fillStyle = "rgb(255, 0, 0)";
 
     // Load MP3
+    //TODO: let the user select the MP3 file to load and play.
     audio = new RemoteAudioPlayer(context, "audio/track.mp3");
     audio.load(function() {
       $('#play').text("Play");
@@ -97,7 +98,7 @@
 
 <p/>
 
-<!-- TODO: add code for selecting the MP3 file to load and play. -->
+<!-- TODO: let the user select the MP3 file to load and play. -->
 <div class="row">
   <p>Select Song: </p>
 </div>
@@ -107,9 +108,9 @@
 <div class="row">
   <h3>Remaining Tasks</h3>
   <ul>
-    <li>Make sure the Light Tester still works.</li>
+    <li>Make sure the Light Tester still works with Node.js</li>
     <li>Download mp3 files and let user change the music.</li>
-    <li>Visualize audio in 3 squares representing the lights</li>
+    <li>Design the visualization in the 3 canvas objects representing the lights.</li>
     <li>Visualize audio on the Philips Hue lights.</li>
   </ul>
 </div>

@@ -1,30 +1,25 @@
 /**
   @constructor
-  Create an n-point FFT based spectral analyzer.
+  Use an n-point FFT (fast Fourier transform) spectral analyzer to visualize audio on Philips Hue lights.
 
-  @param num_points - Number of points for transform.
-  @param num_bins - Number of bins to show on canvas.
-  @param bin_to_display - Which bin to display. If 0, display all bins (bar chart)
-  @param canvas_id - Canvas element ID.
+  @param num_points - Number of points for transform (i.e. how many buckets we get containing frequency information)
+  @param num_lights - Number of Phlips Lights representing the spectrum.
+  @param this_light - Which light to display.
+  @param canvas_id - Canvas element ID.    <<TODO: will probably be changed to the light-id?
   @param audio_context - An AudioContext instance.
 */
-SpectrumBox = function(num_points, num_bins, bin_to_display, canvas_id, audio_context, type) {
-  this.init(num_points, num_bins, bin_to_display, canvas_id, audio_context, type);
+LightBox = function(num_points, num_lights, this_light, canvas_id, audio_context, type) {
+  this.init(num_points, num_lights, this_light, canvas_id, audio_context, type);
 }
 
-SpectrumBox.Types = {
-  FREQUENCY: 1,
-  TIME: 2
-}
 
-SpectrumBox.prototype.init = function(num_points, num_bins, bin_to_display, canvas_id, audio_context, type) {
-  this.num_bins = num_bins;
-  this.bin_to_display = bin_to_display;
+LightBox.prototype.init = function(num_points, num_lights, this_light, canvas_id, audio_context, type) {
+  this.num_lights = num_lights;
+  this.this_light = this_light;
   this.num_points = num_points;
   this.canvas_id = canvas_id;
   this.update_rate_ms = 50;
   this.smoothing = 0.75;
-  this.type = type || SpectrumBox.Types.FREQUENCY;
 
   // Number of points we actually want to display. If zero, display all points.
   this.valid_points = 0;
@@ -34,12 +29,8 @@ SpectrumBox.prototype.init = function(num_points, num_bins, bin_to_display, canv
   this.width = this.canvas.width;
   this.height = this.canvas.height;
 
-  if (this.type == SpectrumBox.Types.FREQUENCY) {
-    this.bar_spacing = 3;
-  }
-  else {
-    this.bar_spacing = 1;
-  }
+  this.bar_spacing = 3;
+
 
   this.ctx = this.canvas.getContext('2d');
   this.actx = audio_context;
@@ -53,30 +44,26 @@ SpectrumBox.prototype.init = function(num_points, num_bins, bin_to_display, canv
 
 
 /* Returns the AudioNode of the FFT. You can route signals into this. */
-SpectrumBox.prototype.getAudioNode = function() {
+LightBox.prototype.getAudioNode = function() {
   return this.fft;
 }
 
 /* Returns the canvas' 2D context. Use this to configure the look of the display. */
-SpectrumBox.prototype.getCanvasContext = function() {
+LightBox.prototype.getCanvasContext = function() {
   return this.ctx;
 }
 
 /* Set the number of points to work with. */
-SpectrumBox.prototype.setValidPoints = function(points) {
+LightBox.prototype.setValidPoints = function(points) {
   this.valid_points = points;
   return this;
 }
 
-/* Set the domain type for the graph (TIME / FREQUENCY. */
-SpectrumBox.prototype.setType = function(type) {
-  this.type = type;
-  return this;
-}
 
-
-/* Enable the analyzer. Starts drawing stuff on the canvas. */
-SpectrumBox.prototype.enable = function() {
+/* Enable the analyzer. Starts drawing stuff on the canvas 
+   TODO: and eventually on the lights. 
+ */
+LightBox.prototype.enable = function() {
   var that = this;
   if (!this.intervalId) {
     this.intervalId = window.setInterval(
@@ -85,8 +72,10 @@ SpectrumBox.prototype.enable = function() {
   return this;
 }
 
-/* Disable the analyzer. Stops drawing stuff on the canvas. */
-SpectrumBox.prototype.disable = function() {
+/* Disable the analyzer. Stops drawing stuff on the canvas
+   TODO: and eventually on the lights. 
+ */
+LightBox.prototype.disable = function() {
   if (this.intervalId) {
     window.clearInterval(this.intervalId);
     this.intervalId = undefined;
@@ -95,32 +84,27 @@ SpectrumBox.prototype.disable = function() {
 }
 
 
-/* Updates the canvas display. */
-SpectrumBox.prototype.update = function() {
+/* Updates the canvas display
+   TODO: and eventually the lights.
+ */
+LightBox.prototype.update = function() {
 
   // Get the frequency samples
   data = this.data;
 
-  if (this.type == SpectrumBox.Types.FREQUENCY) {
-    this.fft.smoothingTimeConstant = this.smoothing;
-    this.fft.getByteFrequencyData(data);
-  }
-  else {
-    this.fft.smoothingTimeConstant = 0;
-    this.fft.getByteFrequencyData(data);
-    this.fft.getByteTimeDomainData(data);
-  }
+  this.fft.smoothingTimeConstant = this.smoothing;
+  this.fft.getByteFrequencyData(data);
 
   var length = data.length;
   if (this.valid_points > 0) length = this.valid_points;
 
-  // Clear canvas then redraw graph.
+  // Clear canvas then redraw.
   this.ctx.clearRect(0, 0, this.width, this.height);
 
   // Break the samples up into bins
-  var bin_size = Math.floor(length / this.num_bins);
+  var bin_size = Math.floor(length / this.num_lights);
 
-  for (var i=0; i < this.num_bins; ++i) {
+  for (var i=0; i < this.num_lights; ++i) {
     var sum = 0;
 
     for (var j=0; j < bin_size; ++j) {
@@ -130,22 +114,14 @@ SpectrumBox.prototype.update = function() {
     // Calculate the average frequency of the samples in the bin
     var average = sum / bin_size;
 
-    // Draw the bars on the canvas
-    var bar_width = this.width / this.num_bins;
+    // Draw the bar on the canvas
+    var bar_width = this.width;
     var scaled_average = (average / 256) * this.height;
 
-    //TODO: if 0, display...
-    if(i == this.bin_to_display) {
-      if (this.type == SpectrumBox.Types.FREQUENCY) {
-        this.ctx.fillRect(
-          i * bar_width, this.height,
-          bar_width - this.bar_spacing, -scaled_average);
-      }
-      else {
-        this.ctx.fillRect(
-          i * bar_width, this.height - scaled_average + 2,
-          bar_width - this.bar_spacing, -1);
-      }
+    if(i == (this.this_light-1)) {
+      this.ctx.fillRect(
+        0, this.height,
+        bar_width, -scaled_average);
     }
   }
 }
