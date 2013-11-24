@@ -27,6 +27,7 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.get('/audio', routes.audio);
 app.get('/lights', routes.lights);
 app.get('/about', routes.about);
 

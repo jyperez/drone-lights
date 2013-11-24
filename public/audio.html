@@ -9,7 +9,6 @@
   function initialize() {
     context = new webkitAudioContext();
 
-
     // Setup frequency domain graph
     frequencybox = new SpectrumBox(2048, 30, "fftbox", context);
     frequencybox.setValidPoints(500);
@@ -21,7 +20,7 @@
     wavebox.getCanvasContext().fillStyle = "rgb(255, 0, 0)";
 
     // Load MP3
-    audio = new RemoteAudioPlayer(context, "audio/track.mp3");
+    audio = new RemoteAudioPlayer(context, "track.mp3");
     audio.load(function() {
       $('#play').text("Play");
       $('#play').click(play);
@@ -67,7 +66,7 @@
 </script>
 
 <div class="row">
-  <h1>Visualizing Audio on Philips Hue Lights</h1>
+  <h1>Audio Visualizer</h1>
 </div>
 
 <div class="row">
@@ -81,22 +80,4 @@
 
 <div class="row">
   <a class="btn btn-primary" href="#" id="play">Loading...</a>
-</div>
-
-<p/>
-
-<div class="row">
-  <p>Select Song</p>
-</div>
-
-<p/>
-
-<div class="row">
-  <h3>Remaining Tasks</h3>
-  <ul>
-    <li>Make sure the Lights Tester still works.</li>
-    <li>Download mp3 files and let user change the music.</li>
-    <li>Visualize the audio in 3 circles representing the lights</li>
-    <li>Visualize the audio on the Philips Hue lights.</li>
-  </ul>
 </div>
