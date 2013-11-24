@@ -1,24 +1,28 @@
 <script>
   var context;
 
-  var frequencybox;
-  var wavebox;
+  var light1;
+  var light2;
+  var light3;
+
   var audio;
 
 
   function initialize() {
     context = new webkitAudioContext();
 
+    // Setup frequency visualization
+    light1 = new SpectrumBox(2048, 3, 1, "light1", context);
+    light1.setValidPoints(500);
+    light1.getCanvasContext().fillStyle = "rgb(255, 150, 150)";
 
-    // Setup frequency domain graph
-    frequencybox = new SpectrumBox(2048, 30, "fftbox", context);
-    frequencybox.setValidPoints(500);
-    frequencybox.getCanvasContext().fillStyle = "rgb(150, 150, 150)";
+    light2 = new SpectrumBox(2048, 3, 2, "light2", context);
+    light2.setValidPoints(500);
+    light2.getCanvasContext().fillStyle = "rgb(0, 255, 0)";
 
-    // Setup time domain graph
-    wavebox = new SpectrumBox(2048, 1000, "wavebox", context);
-    wavebox.setType(SpectrumBox.Types.TIME);
-    wavebox.getCanvasContext().fillStyle = "rgb(255, 0, 0)";
+    light3 = new SpectrumBox(2048, 3, 3, "light3", context);
+    light3.setValidPoints(500);
+    light3.getCanvasContext().fillStyle = "rgb(0, 0, 255)";
 
     // Load MP3
     audio = new RemoteAudioPlayer(context, "audio/track.mp3");
@@ -31,21 +35,28 @@
 
   function play() {
     var source = audio.getSource();
-    var wavenode = wavebox.getAudioNode();
-    var frequencynode = frequencybox.getAudioNode();
+
+    var light1Node = light1.getAudioNode();
+    var light2Node = light2.getAudioNode();
+    var light3Node = light3.getAudioNode();
 
     // Route audio and graphs
-    source.connect(frequencynode);
-    frequencynode.connect(wavenode)
-    wavenode.connect(context.destination);
+    source.connect(light1Node);
+    source.connect(light2Node);
+    source.connect(light3Node);
+
+    light1Node.connect(context.destination);
+    light2Node.connect(light1Node);
+    light3Node.connect(light1Node);
 
     // Play audio
     audio.reload();
     source.noteOn(0);
 
-    // Enable graphs
-    wavebox.enable();
-    frequencybox.enable();
+    // Enable visualizations
+    light1.enable();
+    light2.enable();
+    light3.enable();
 
     $('#play').text("Stop");
     $('#play').click(stop);
@@ -53,9 +64,11 @@
 
 
   function stop() {
-    // Disable graphs
-    wavebox.disable();
-    frequencybox.disable();
+    // Disable visualizations
+    light1.disable();
+    light2.disable();
+    light3.disable();
+
     audio.getSource().disconnect();
 
     $('#play').text("Play");
@@ -71,10 +84,9 @@
 </div>
 
 <div class="row">
-  <div id="canvasbox">
-    <canvas id="fftbox" width=500 height=100></canvas>
-    <canvas id="wavebox" width=500 height=100></canvas>
-  </div>
+  <span class="col-md-1" style="margin-right:5px;"><canvas id="light1" width=100 height=100 style="background:#f3f3f3;"></canvas></span>
+  <span class="col-md-1" style="margin-right:5px;"><canvas id="light2" width=100 height=100 style="background:#f3f3f3;"></canvas></span>
+  <span class="col-md-1"><canvas id="light3" width=100 height=100 style="background:#f3f3f3;"></canvas></span>
 </div>
 
 <p/>
@@ -85,8 +97,9 @@
 
 <p/>
 
+<!-- TODO: add code for selecting the MP3 file to load and play. -->
 <div class="row">
-  <p>Select Song</p>
+  <p>Select Song: </p>
 </div>
 
 <p/>
@@ -94,9 +107,9 @@
 <div class="row">
   <h3>Remaining Tasks</h3>
   <ul>
-    <li>Make sure the Lights Tester still works.</li>
+    <li>Make sure the Light Tester still works.</li>
     <li>Download mp3 files and let user change the music.</li>
-    <li>Visualize the audio in 3 circles representing the lights</li>
-    <li>Visualize the audio on the Philips Hue lights.</li>
+    <li>Visualize audio in 3 squares representing the lights</li>
+    <li>Visualize audio on the Philips Hue lights.</li>
   </ul>
 </div>

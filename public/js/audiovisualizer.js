@@ -1,19 +1,15 @@
-/*
-   SpectrumBox - A JavaScript spectral analyzer.
-   Mohit Cheppudira - 0xfe.blogspot.com
-*/
-
 /**
   @constructor
   Create an n-point FFT based spectral analyzer.
 
   @param num_points - Number of points for transform.
   @param num_bins - Number of bins to show on canvas.
+  @param bin_to_display - Which bin to display. If 0, display all bins (bar chart)
   @param canvas_id - Canvas element ID.
   @param audio_context - An AudioContext instance.
 */
-SpectrumBox = function(num_points, num_bins, canvas_id, audio_context, type) {
-  this.init(num_points, num_bins, canvas_id, audio_context, type);
+SpectrumBox = function(num_points, num_bins, bin_to_display, canvas_id, audio_context, type) {
+  this.init(num_points, num_bins, bin_to_display, canvas_id, audio_context, type);
 }
 
 SpectrumBox.Types = {
@@ -21,8 +17,9 @@ SpectrumBox.Types = {
   TIME: 2
 }
 
-SpectrumBox.prototype.init = function(num_points, num_bins, canvas_id, audio_context, type) {
+SpectrumBox.prototype.init = function(num_points, num_bins, bin_to_display, canvas_id, audio_context, type) {
   this.num_bins = num_bins;
+  this.bin_to_display = bin_to_display;
   this.num_points = num_points;
   this.canvas_id = canvas_id;
   this.update_rate_ms = 50;
@@ -60,8 +57,7 @@ SpectrumBox.prototype.getAudioNode = function() {
   return this.fft;
 }
 
-/* Returns the canvas' 2D context. Use this to configure the look
-   of the display. */
+/* Returns the canvas' 2D context. Use this to configure the look of the display. */
 SpectrumBox.prototype.getCanvasContext = function() {
   return this.ctx;
 }
@@ -101,12 +97,15 @@ SpectrumBox.prototype.disable = function() {
 
 /* Updates the canvas display. */
 SpectrumBox.prototype.update = function() {
+
   // Get the frequency samples
   data = this.data;
+
   if (this.type == SpectrumBox.Types.FREQUENCY) {
     this.fft.smoothingTimeConstant = this.smoothing;
     this.fft.getByteFrequencyData(data);
-  } else {
+  }
+  else {
     this.fft.smoothingTimeConstant = 0;
     this.fft.getByteFrequencyData(data);
     this.fft.getByteTimeDomainData(data);
@@ -120,8 +119,10 @@ SpectrumBox.prototype.update = function() {
 
   // Break the samples up into bins
   var bin_size = Math.floor(length / this.num_bins);
+
   for (var i=0; i < this.num_bins; ++i) {
     var sum = 0;
+
     for (var j=0; j < bin_size; ++j) {
       sum += data[(i * bin_size) + j];
     }
@@ -133,14 +134,18 @@ SpectrumBox.prototype.update = function() {
     var bar_width = this.width / this.num_bins;
     var scaled_average = (average / 256) * this.height;
 
-    if (this.type == SpectrumBox.Types.FREQUENCY) {
-      this.ctx.fillRect(
-        i * bar_width, this.height,
-        bar_width - this.bar_spacing, -scaled_average);
-    } else {
-      this.ctx.fillRect(
-        i * bar_width, this.height - scaled_average + 2,
-        bar_width - this.bar_spacing, -1);
+    //TODO: if 0, display...
+    if(i == this.bin_to_display) {
+      if (this.type == SpectrumBox.Types.FREQUENCY) {
+        this.ctx.fillRect(
+          i * bar_width, this.height,
+          bar_width - this.bar_spacing, -scaled_average);
+      }
+      else {
+        this.ctx.fillRect(
+          i * bar_width, this.height - scaled_average + 2,
+          bar_width - this.bar_spacing, -1);
+      }
     }
   }
 }
