@@ -123,9 +123,9 @@ LightBox.prototype.update = function() {
   if (scaled_average > 50) {
     setBrightness(this.this_light, 100);
   }
-  else (scaled_average < 40) {
+  else if (scaled_average < 40) {
     setBrightness(this.this_light,10)
-  };
+  }
 
     if(i == (this.this_light-1)) {
       this.ctx.fillRect(
