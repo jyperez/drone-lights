@@ -117,11 +117,21 @@ LightBox.prototype.update = function() {
     // Draw the bar on the canvas
     var bar_width = this.width;
     var scaled_average = (average / 256) * this.height;
+    // scaled_average is thing thingy 
+
+  setBrightness(this.this_light, scaled_average);
+  if (scaled_average > 50) {
+    setBrightness(this.this_light, 100);
+  }
+  else (scaled_average < 40) {
+    setBrightness(this.this_light,10)
+  };
 
     if(i == (this.this_light-1)) {
       this.ctx.fillRect(
         0, this.height,
         bar_width, -scaled_average);
+     
     }
   }
 }
