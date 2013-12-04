@@ -12,6 +12,10 @@
     track = track || "audio/track.mp3";
     context = new webkitAudioContext();
 
+    function initialize(track2) {
+    track = track || "audio/track2.mp3";
+    context = new webkitAudioContext();
+
     // Setup frequency visualization
     light1 = new LightBox(2048, 3, 1, "light1", context);
     light1.setValidPoints(500);
@@ -103,7 +107,7 @@
 <!-- TODO: let the user select the MP3 file to load and play. -->
 <div class="row">
   <p>Select Song: </p>
-  <br><a href="#" onclick="initialize('audio/track.mp3')"></a>
+  <br><a href="#" onclick="initialize('audio/track.mp3')">Track 1 Default</a>
   <br><a href="#" onclick="initialize('audio/track2.mp3')">Jingle Bell Rock</a>
   <br><a href="#" onclick="initialize('audio/track3.mp3')">Stay the Night</a>
 </div>
